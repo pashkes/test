@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create Note",
   description: "Create by go It",
-  metadataBase: new URL("/notes/action/create"),
+  metadataBase: new URL("http://localhost:3000/notes/action/create"),
   openGraph: {
     title: "Create Note",
     description: "Create by go It",
