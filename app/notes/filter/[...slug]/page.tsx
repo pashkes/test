@@ -46,7 +46,8 @@ export default async function FilteredNotesPage({ params }: Props) {
     const initialData = await fetchNotes(1, "", tag);
 
     return <Notes initialData={initialData} tag={tag} />;
-  } catch {
+  } catch(err) {
+    console.log(err)
     return notFound();
   }
 }

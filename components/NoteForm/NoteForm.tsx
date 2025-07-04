@@ -42,30 +42,35 @@ const NoteForm = () => {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const values: CreateNoteType = {
-      title: formData.get("title") as string,
-      content: (formData.get("content") ?? "") as string,
+  const handleSubmit = async (formData: FormData) => {
+    const values = {
+      title: formData.get("title") as CreateNoteType['title'],
+      content: (formData.get("content") ?? "") as CreateNoteType['content'],
       tag: formData.get("tag") as CreateNoteType["tag"],
     };
-
-    await OrderSchema.validate(values, { abortEarly: false });
-
-    await mutation.mutateAsync(values);
-    e.currentTarget.reset();
-    onClose();
+    try {
+      await OrderSchema.validate(values, { abortEarly: false });
+      await mutation.mutateAsync(values);
+      onClose();
+    } catch(error) {
+      if (error instanceof Yup.ValidationError) {
+        console.log('Validation failed:');
+        error.inner.forEach(err => {
+          console.log(`Field: ${err.path}, Error: ${err.message}`);
+        });
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
+    }
+    // e.currentTarget.reset();
   };
 
   return (
-    <form onSubmit={handleSubmit} className={css.form}>
+    <form action={handleSubmit} className={css.form}>
       <fieldset className={css.formGroup}>
         <label htmlFor={`${fieldId}-title`}>Title</label>
         <input
           required
-          minLength={3}
           maxLength={50}
           id={`${fieldId}-title`}
           name="title"

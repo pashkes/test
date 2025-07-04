@@ -6,7 +6,7 @@ export interface NotesResponse {
   totalPages: number;
 }
 
-axios.defaults.baseURL = "https://notehub-public.goit.study/api";
+axios.defaults.baseURL = 'https://9000-firebase-08-zustandgit-1751392557951.cluster-c23mj7ubf5fxwq6nrbev4ugaxa.cloudworkstations.dev/api'
 
 export const fetchNotes = async (
   page: number = 1,
@@ -27,7 +27,7 @@ export const fetchNotes = async (
   if (tag && tag.toLowerCase() !== "all") {
     params.tag = tag;
   }
-
+  
   const response: AxiosResponse<NotesResponse> = await axios.get("/notes", {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
