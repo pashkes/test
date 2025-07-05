@@ -1,5 +1,3 @@
-function defaults() {
+export default function Default() {
   return null;
 }
-
-export default defaults;

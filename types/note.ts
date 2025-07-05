@@ -1,21 +1,22 @@
-type NoteTag = "Work" | "Personal" | "Shopping" | "Meeting" | "Todo";
-
 export interface Note {
   id: number;
   title: string;
   content: string;
-  tag: NoteTag;
   createdAt: string;
   updatedAt: string;
+  category: {
+    id: number;
+    name: string;
+  };
 }
 
 export interface CreateNoteType {
   title: string;
   content?: string;
-  tag: "" | NoteTag;
+  categoryId: string;
 }
 
 export type Category = {
-  id: number;
+  id: string;
   name: string;
 };

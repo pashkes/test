@@ -1,31 +1,34 @@
-import Link from "next/link";
-import css from "./Header.module.css";
-import TagsMenu from "../TagsMenu/TagsMenu";
+// components/Header/Header.tsx
 
-const Header = async () => {
-  const tags = [
-    { id: 1, name: "Todo" },
-    { id: 2, name: "Work" },
-    { id: 3, name: "Personal" },
-    { id: 4, name: "Meeting" },
-    { id: 5, name: "Shopping" },
-  ];
+import css from './Header.module.css';
+import Link from 'next/link';
+import CategoriesMenu from '../CategoriesMenu/CategoriesMenu';
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
+
+const Header = () => {
+  // Прибираємо запит
+  // const categories = await getCategories()
 
   return (
     <header className={css.header}>
-      <Link className={css.navigationLink} href="/" aria-label="Home">
-        NoteHub
+      <Link href="/" aria-label="Home">
+        Note HUB
       </Link>
       <nav aria-label="Main Navigation">
         <ul className={css.navigation}>
-          <li className={css.navigationItem}>
-            <Link className={css.navigationLink} href="/">
-              Home
-            </Link>
+          <li>
+            <Link href="/">Home</Link>
           </li>
-          <li className={css.navigationItem}>
-            <TagsMenu categories={tags} />
+          <li>
+            <CategoriesMenu />
           </li>
+          <li>
+            <Link href="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link href="/about">About</Link>
+          </li>
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

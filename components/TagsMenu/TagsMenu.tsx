@@ -1,8 +1,8 @@
-"use client";
-import Link from "next/link";
-import css from "./TagsMenu.module.css";
-import { useState } from "react";
-import { Category } from "@/types/note";
+'use client';
+import Link from 'next/link';
+import css from './TagsMenu.module.css';
+import { useState } from 'react';
+import { Category } from '@/types/note';
 
 type TagsMenuProps = {
   categories: Category[];

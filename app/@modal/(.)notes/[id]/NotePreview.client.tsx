@@ -1,19 +1,18 @@
-"use client";
-import Modal from "@/components/Modal/Modal";
+'use client';
+import Modal from '@/components/Modal/Modal';
 
-import { useParams, useRouter } from "next/navigation";
-import css from "./NotePreview.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { getSingleNote } from "@/lib/api";
+import { useParams, useRouter } from 'next/navigation';
+import css from './NotePreview.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { getSingleNote } from '@/lib/api/clientApi';
 
 export default function NotePreviewClient() {
   const router = useRouter();
   const closeModal = () => router.back();
-  const params = useParams<{ id: string }>();
-  const id = Number(params.id);
+  const { id } = useParams<{ id: string }>();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notePreview", id],
+    queryKey: ['notePreview', id],
     queryFn: () => getSingleNote(id),
     refetchOnMount: false,
   });
@@ -32,7 +31,7 @@ export default function NotePreviewClient() {
           <time>{new Date(data.createdAt).toLocaleString()}</time>
         </div>
         <p className={css.content}>{data.content}</p>
-        {data.tag && <span className={css.tag}>{data.tag}</span>}
+        {data.category && <span className={css.tag}>{data.category.name}</span>}
 
         <button onClick={closeModal} className={css.backBtn}>
           Back

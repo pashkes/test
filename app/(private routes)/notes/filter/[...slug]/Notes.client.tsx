@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import css from "./NotesPage.module.css";
-import SearchBox from "@/components/SearchBox/SearchBox";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import Pagination from "@/components/Pagination/Pagination";
+import { useState } from 'react';
+import css from './NotesPage.module.css';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import Pagination from '@/components/Pagination/Pagination';
 
-import { useDebounce } from "use-debounce";
-import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import Loader from "@/components/Loader/Loader";
-import NoteList from "@/components/NoteList/NoteList";
-import { fetchNotes, NotesResponse } from "@/lib/api";
+import { useDebounce } from 'use-debounce';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import Loader from '@/components/Loader/Loader';
+import NoteList from '@/components/NoteList/NoteList';
+import { fetchNotes, NotesResponse } from '@/lib/api/clientApi';
 
-import Link from "next/link";
+import Link from 'next/link';
 
 interface NotesProps {
   initialData: NotesResponse;
@@ -20,12 +20,12 @@ interface NotesProps {
 }
 
 function Notes({ initialData, tag }: NotesProps) {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { data, isError, isPending } = useQuery({
-    queryKey: ["noteList", tag, debouncedSearchQuery, currentPage],
+    queryKey: ['noteList', tag, debouncedSearchQuery, currentPage],
     queryFn: () => fetchNotes(currentPage, debouncedSearchQuery, tag),
     placeholderData: keepPreviousData,
     initialData,

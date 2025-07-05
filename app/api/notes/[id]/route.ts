@@ -15,8 +15,14 @@ export async function GET(request: NextRequest, { params }: Props) {
     return NextResponse.json(data);
   }
 
-  return NextResponse.json(
-	  { error: 'Failed to fetch note' }, 
-	  { status: 500 }
-	);
+  return NextResponse.json({ error: 'Failed to fetch note' }, { status: 500 });
+}
+
+export async function DELETE(request: NextRequest, { params }: Props) {
+  const { id } = await params;
+  const { data } = await api.delete(`/notes/${id}`);
+  if (data) {
+    return NextResponse.json(data);
+  }
+  return NextResponse.json({ error: 'Failed to delete note' }, { status: 500 });
 }
